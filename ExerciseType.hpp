@@ -14,19 +14,16 @@ public:
     ~ExerciseType() = default;
 
 private:
-    std::string id; // Идентификатор упражнения
-    std::string title; // Название
-    Category category; // Категория (кардио, силовые, йога)
-    std::set<Muscle> targetMuscles; // Целевые мышцы
-    std::set<Equipment> requiredEquipment; // Необходимое оборудование
-    int baseCaloriesPerMin; // Базовые калории за минуту
+    std::string id;
+    std::string title; 
+    Category category; 
+    std::set<Muscle> targetMuscles; 
+    std::set<Equipment> requiredEquipment; 
+    int baseCaloriesPerMin; 
 
 public:
-    // Оценка сожженных калорий
     int estimateCalories(int duration);
-    // Поиск похожих упражнений
     std::vector<ExerciseType> findSimilar(Category category);
-    // Проверка совместимости с пользователем
     bool isCompatible(const FitnessUser& user);
 };
 
