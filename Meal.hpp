@@ -12,19 +12,16 @@ public:
     ~Meal() = default;
 
 private:
-    std::string id; // Идентификатор приема пищи
-    std::string dietId; // Идентификатор плана питания
-    std::string mealTime; // Время приема
-    std::vector<FoodItem> foodItems; // Список продуктов
-    int totalCalories; // Общие калории
-    Nutrition nutrition; // Нутриенты
+    std::string id; 
+    std::string dietId; 
+    std::string mealTime; 
+    std::vector<FoodItem> foodItems; 
+    int totalCalories; 
+    Nutrition nutrition; 
 
 public:
-    // Добавление продукта
     void addFoodItem(const FoodItem& item);
-    // Пересчет итогов
     void calculateTotals();
-    // Замена продукта
     void substituteItem(const FoodItem& oldItem, const FoodItem& newItem);
 };
 
