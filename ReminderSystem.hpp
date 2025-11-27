@@ -7,22 +7,17 @@
 class ReminderSystem
 {
 public:
-    // Конструктор по умолчанию
     ReminderSystem() = default;
-    // Деструктор
     ~ReminderSystem() = default;
 
 private:
-    std::string userId; // Идентификатор пользователя
-    std::vector<Reminder> reminders; // Список напоминаний
-    NotificationType notificationType; // Тип уведомления
+    std::string userId; 
+    std::vector<Reminder> reminders; 
+    NotificationType notificationType; 
 
 public:
-    // Добавление напоминания
     void setReminder(const Reminder& reminder);
-    // Отправка уведомлений
     void triggerNotifications();
-    // Отмена напоминания
     void cancelReminder(const std::string& id);
 };
 
