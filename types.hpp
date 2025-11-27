@@ -5,117 +5,112 @@
 #include <vector>
 #include <set>
 
-using IdType = std::string; // Уникальный идентификатор
-using DateType = std::string; // Дата в строковом формате
-using TimeType = std::string; // Время в строковом формате
+using IdType = std::string; 
+using DateType = std::string; 
+using TimeType = std::string; 
 
-// Пол пользователя
+
 enum class Gender {
-    Male, // Мужской
-    Female, // Женский
-    Other // Другое :)
+    Male, 
+    Female
 };
 
-// Уровень активности пользователя
+
 enum class ActivityLevel {
     Low, 
     Medium,
     High 
 };
 
-// Тип цели пользователя
+
 enum class GoalType {
-    WeightLoss, // Снижение веса
-    MuscleGain, // Набор мышечной массы
-    Maintenance // Поддержание формы
+    WeightLoss, 
+    MuscleGain,
+    Maintenance
 };
 
-// Уровень сложности программы тренировок
+
 enum class Difficulty {
-    Beginner, // Начинающий
-    Intermediate, // Средний
-    Advanced // Продвинутый
+    Beginner, 
+    Intermediate,
+    Advanced 
 };
 
-// Категория упражнения
 enum class Category {
-    Cardio, // Кардио
-    Strength, // Силовые
-    Yoga // Йога
+    Cardio, 
+    Strength,
+    Yoga 
 };
 
-// Целевые группы мышц
+
 enum class Muscle {
-    Chest, // Грудь
-    Back, // Спина
-    Legs, // Ноги
-    Arms, // Руки
-    Shoulders, // Плечи
-    Abs // Пресс
+    Chest, 
+    Back, 
+    Legs, 
+    Arms, 
+    Shoulders, 
+    Abs
 };
 
-// Необходимое оборудование
 enum class Equipment {
-    None, // Без оборудования
-    Dumbbells, // Гантели
-    Barbell, // Штанга
-    Machine // Тренажер
+    None, 
+    Dumbbells,
+    Barbell,
+    Machine 
 };
 
-// Структура для макронутриентов
 struct Macros {
-    double proteinRatio; // Доля белков
-    double fatsRatio; // Доля жиров
-    double carbsRatio; // Доля углеводов
+    double proteinRatio; 
+    double fatsRatio; 
+    double carbsRatio; 
 };
 
-// Структура для нутриентов
+
 struct Nutrition {
-    double protein; // Белки
-    double carbs; // Углеводы
-    double fats; // Жиры
-    int calories; // Калории
+    double protein; 
+    double carbs; 
+    double fats; 
+    int calories;
 };
 
-// Возможные аллергены
 enum class Allergen {
-    Nuts, // Орехи
-    Dairy, // Молочные продукты
-    Gluten // Глютен
+    Nuts, 
+    Dairy, 
+    Gluten 
 };
 
-// Запись в журнале прогресса
+
 struct LogEntry {
-    DateType date; // Дата записи
-    double weight; // Вес
-    std::string photo; // Фото (путь или ссылка)
+    DateType date; 
+    double weight; 
+    std::string photo; 
 };
 
-// Диапазон дат
+
 struct DateRange {
-    DateType start; // Начало периода
-    DateType end; // Конец периода
+    DateType start; 
+    DateType end; 
 };
 
-// Напоминание
+
 struct Reminder {
     IdType id;
     TimeType time; 
     std::string message;
 };
 
-// Тип уведомления
+
 enum class NotificationType {
-    Push, // Push-уведомление
-    Email // Электронная почта
+    Push, 
+    Email 
 };
 
-// Лог выполненного упражнения
+
 struct ExerciseLog {
-    IdType exerciseTypeId; // Идентификатор типа упражнения
-    int durationMin; // Длительность в минутах
-    int reps; // Количество повторений
-    double weightKg; // Вес (если применимо)
+    IdType exerciseTypeId;
+    int durationMin; 
+    int reps;
+    double weightKg;
 };
 
 #endif
