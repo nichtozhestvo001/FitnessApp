@@ -34,7 +34,7 @@ int main() {
     std::string str = std::string("Дата: ") + user.getBirthDate();
     std::cout << str << std::endl;
 
-    DerivedUser derived("3", "derived", "email", "date", Gender::Other, 1.7, 70.0, ActivityLevel::Low, "Доп. инфо");
+    DerivedUser derived("3", "derived", "email", "date", Gender::Male, 1.7, 70.0, ActivityLevel::Low, "Доп. инфо");
     DerivedUser copyDerived(derived); 
     std::cout << "Наследование: Доп. инфо = " << copyDerived.getAdditionalInfo() << std::endl;
 
