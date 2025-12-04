@@ -3,7 +3,7 @@ using System.Collections.Generic;
 
 namespace FitnessApp
 {
-    public class ProgressLog
+    public class ProgressLog : ILoggable
     {
         private string userId;
         private List<LogEntry> entries = new List<LogEntry>();
@@ -22,6 +22,11 @@ namespace FitnessApp
         public void VisualizeProgress()
         {
             Console.WriteLine("Визуализация прогресса (заглушка для графика)");
+        }
+
+        public void Log(string message)
+        {
+            Console.WriteLine($"Progress log: {message}");
         }
     }
 }
