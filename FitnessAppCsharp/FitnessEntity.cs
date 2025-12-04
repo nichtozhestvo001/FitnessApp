@@ -14,14 +14,14 @@ namespace FitnessApp
         }
 
         public abstract string GetInfo();
-        public abstract FitnessEntity Clone(); // Для клонирования
+        public abstract FitnessEntity Clone();
 
-        public virtual double CalculateSomething() // Виртуальный метод для демонстрации
+        public virtual double CalculateSomething()
         {
             return 0.0;
         }
 
-        public void CallVirtual() // Невиртуальный вызывает виртуальный
+        public void CallVirtual()
         {
             Console.WriteLine("Результат виртуального: " + CalculateSomething());
         }

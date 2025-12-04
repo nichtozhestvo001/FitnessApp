@@ -20,13 +20,13 @@ namespace FitnessApp
             return "FitnessApp v1.0 - Демонстрация статического метода";
         }
 
-        public FitnessUser() : base(Guid.NewGuid().ToString()) // Вызов базового конструктора
+        public FitnessUser() : base(Guid.NewGuid().ToString()) 
         {
             totalUsers++;
         }
 
         public FitnessUser(string id, string username, string email, string birthDate, Gender gender, double heightM, double currentWeight, ActivityLevel activityLevel)
-            : base(id) // Вызов базового конструктора с параметром
+            : base(id)
         {
             this.username = username;
             this.email = email;
