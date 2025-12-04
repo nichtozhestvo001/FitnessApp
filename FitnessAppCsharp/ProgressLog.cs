@@ -29,4 +29,5 @@ namespace FitnessApp
             Console.WriteLine($"Progress log: {message}");
         }
     }
+
 }

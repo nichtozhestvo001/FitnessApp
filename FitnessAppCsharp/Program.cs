@@ -73,7 +73,7 @@ namespace FitnessApp
             ExerciseType exType = new ExerciseType();
             var shallowClone = (ExerciseType)exType.Clone();
             var deepClone = exType.DeepClone();
-            Console.WriteLine("Клоны созданы (проверь изменения в оригинале для разницы shallow/deep)");
+            Console.WriteLine("Клоны созданы");
 
             CardioExerciseType cardio = new CardioExerciseType(); 
             Console.WriteLine("Калории для кардио: " + cardio.EstimateCalories(30)); 

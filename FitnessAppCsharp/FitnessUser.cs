@@ -99,5 +99,6 @@ namespace FitnessApp
         {
             Console.WriteLine($"Log for {username}: {message}");
         }
+
     }
 }
