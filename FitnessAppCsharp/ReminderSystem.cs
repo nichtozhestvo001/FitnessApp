@@ -4,7 +4,7 @@ using System.Linq;
 
 namespace FitnessApp
 {
-    public class ReminderSystem
+    public class ReminderSystem : INotifiable
     {
         private string userId;
         private List<Reminder> reminders = new List<Reminder>();
@@ -23,6 +23,11 @@ namespace FitnessApp
         public void CancelReminder(string id)
         {
             reminders.RemoveAll(r => r.Id == id);
+        }
+
+        public void SendNotification(string message)
+        {
+            Console.WriteLine($"Reminder notification: {message}");
         }
     }
 }
