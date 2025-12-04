@@ -60,6 +60,39 @@ namespace FitnessApp
             Console.WriteLine("Файл записан с using - ресурс освобождён");
 
             if (File.Exists(logFile)) File.Delete(logFile);
+
+            // Демонстрация модификаций для лабораторной
+
+            FitnessUser userDemo = new FitnessUser("2", "demoUser", "demo@email.com", "1990-01-01", Gender.Female, 1.65, 60.0, ActivityLevel.High);
+            Console.WriteLine("Инфо о пользователе: " + userDemo.GetInfo());
+
+            FitnessEntity entity = userDemo;
+            entity.CallVirtual();
+            Console.WriteLine("Прямой вызов виртуальной: " + entity.CalculateSomething());
+
+            ExerciseType exType = new ExerciseType();
+            var shallowClone = (ExerciseType)exType.Clone();
+            var deepClone = exType.DeepClone();
+            Console.WriteLine("Клоны созданы (проверь изменения в оригинале для разницы shallow/deep)");
+
+            CardioExerciseType cardio = new CardioExerciseType(); 
+            Console.WriteLine("Калории для кардио: " + cardio.EstimateCalories(30)); 
+
+            StrengthExerciseType strength = new StrengthExerciseType();
+            Console.WriteLine("Калории для силового: " + strength.EstimateCalories(30)); 
+
+
+            userDemo.SendNotification("Тест уведомления");
+            userDemo.Log("Тест лога");
+
+            ReminderSystem reminder = new ReminderSystem();
+            reminder.SendNotification("Тест напоминания");
+
+            ProgressLog progress = new ProgressLog();
+            progress.Log("Тест прогресса");
+
+            // Абстрактный класс: нельзя создать FitnessEntity напрямую
+            // FitnessEntity absEntity = new FitnessEntity("id"); // Ошибка компиляции
         }
     }
 }
