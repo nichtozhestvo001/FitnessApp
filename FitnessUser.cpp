@@ -8,6 +8,19 @@ FitnessUser::FitnessUser(const std::string& id, const std::string& username, con
 	totalUsers++;
 	if (this->heightM <= 0) throw std::invalid_argument("Рост должен быть положительным");
 }
+FitnessUser& FitnessUser::operator=(const FitnessUser& other) {
+	if (this != &other) {
+		id = other.id;
+		username = other.username;
+		email = other.email;
+		birthDate = other.birthDate;
+		gender = other.gender;
+		heightM = other.heightM;
+		currentWeight = other.currentWeight;
+		activityLevel = other.activityLevel;
+	}
+	return *this;
+}
 double FitnessUser::calculateBMI() const {
 	try {
 		if (this->heightM <= 0) throw std::invalid_argument("Рост должен быть положительным");

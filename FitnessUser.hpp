@@ -11,9 +11,10 @@ public:
 	FitnessUser() = default;
 	FitnessUser(const std::string& id, const std::string& username, const std::string& email, const std::string& birthDate, Gender gender, double heightM, double currentWeight, ActivityLevel activityLevel);
 	FitnessUser(const FitnessUser& other) = delete; 
+	FitnessUser& operator=(const FitnessUser& other); 
 	std::string getBirthDate() const;
 	~FitnessUser() override { std::cout << "FitnessUser destructor" << std::endl; }
-private:
+protected: 
 	std::string id;
 	std::string username;
 	std::string email;
@@ -22,6 +23,7 @@ private:
 	double heightM;
 	double currentWeight;
 	ActivityLevel activityLevel;
+private:
 	static int totalUsers;
 protected: 
 	double getProtectedHeight() const { return heightM; }
