@@ -3,6 +3,36 @@ using System.Collections.Generic;
 
 namespace FitnessApp
 {
+    public interface ICalorieEstimator
+    {
+        int EstimateCalories(ExerciseType exercise, int duration);
+    }
+
+    public class BaseCalorieEstimator : ICalorieEstimator
+    {
+        public int EstimateCalories(ExerciseType exercise, int duration)
+        {
+            return exercise.BaseCaloriesPerMin * duration;
+        }
+    }
+
+    public class CardioCalorieEstimator : ICalorieEstimator
+    {
+        public int EstimateCalories(ExerciseType exercise, int duration)
+        {
+            return exercise.BaseCaloriesPerMin * duration + duration * 10;
+        }
+    }
+
+    public class StrengthCalorieEstimator : ICalorieEstimator
+    {
+        public int EstimateCalories(ExerciseType exercise, int duration)
+        {
+            int reps = exercise is StrengthExerciseType s ? s.reps : 0;
+            return exercise.BaseCaloriesPerMin * duration + reps * 5;
+        }
+    }
+
     public class ExerciseType : ICloneable
     {
         private string id;
@@ -12,9 +42,27 @@ namespace FitnessApp
         private HashSet<Equipment> requiredEquipment = new HashSet<Equipment>();
         protected int baseCaloriesPerMin;
 
-        public virtual int EstimateCalories(int duration)
+        protected ICalorieEstimator calorieEstimator;
+
+        public int BaseCaloriesPerMin
         {
-            return baseCaloriesPerMin * duration;
+            get { return baseCaloriesPerMin; }
+            set { baseCaloriesPerMin = value; }
+        }
+
+        public ExerciseType()
+        {
+            calorieEstimator = new BaseCalorieEstimator();
+        }
+
+        public int EstimateCalories(int duration)
+        {
+            return calorieEstimator.EstimateCalories(this, duration);
+        }
+
+        public void SetCalorieEstimator(ICalorieEstimator newEstimator)
+        {
+            calorieEstimator = newEstimator;
         }
 
         public List<ExerciseType> FindSimilar(Category category)

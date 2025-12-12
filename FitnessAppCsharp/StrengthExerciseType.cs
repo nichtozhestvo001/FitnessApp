@@ -7,14 +7,10 @@ namespace FitnessApp
     {
         public int reps;
 
-        public StrengthExerciseType() 
+        public StrengthExerciseType()
         {
             reps = 0;
-        }
-
-        public override int EstimateCalories(int duration)
-        {
-            return base.EstimateCalories(duration) + reps * 5;
+            calorieEstimator = new StrengthCalorieEstimator();
         }
     }
 }

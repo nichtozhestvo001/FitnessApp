@@ -5,15 +5,11 @@ namespace FitnessApp
 {
     public class CardioExerciseType : ExerciseType
     {
-        protected double distanceKm; 
+        protected double distanceKm;
 
-        public CardioExerciseType() 
+        public CardioExerciseType()
         {
-        }
-
-        public override int EstimateCalories(int duration)
-        {
-            return (int)(duration * 10 + baseCaloriesPerMin);
+            calorieEstimator = new CardioCalorieEstimator();
         }
     }
 }

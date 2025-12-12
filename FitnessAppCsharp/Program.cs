@@ -63,36 +63,24 @@ namespace FitnessApp
 
             // Демонстрация модификаций для лабораторной
 
-            FitnessUser userDemo = new FitnessUser("2", "demoUser", "demo@email.com", "1990-01-01", Gender.Female, 1.65, 60.0, ActivityLevel.High);
-            Console.WriteLine("Инфо о пользователе: " + userDemo.GetInfo());
+            Console.WriteLine("\nДемонстрация делегирования и конфигурирования:");
 
-            FitnessEntity entity = userDemo;
-            entity.CallVirtual();
-            Console.WriteLine("Прямой вызов виртуальной: " + entity.CalculateSomething());
-
-            ExerciseType exType = new ExerciseType();
-            var shallowClone = (ExerciseType)exType.Clone();
-            var deepClone = exType.DeepClone();
-            Console.WriteLine("Клоны созданы");
-
-            CardioExerciseType cardio = new CardioExerciseType(); 
-            Console.WriteLine("Калории для кардио: " + cardio.EstimateCalories(30)); 
+            CardioExerciseType cardio = new CardioExerciseType();
+            cardio.BaseCaloriesPerMin = 5; 
+            Console.WriteLine("Калории для кардио (статическая конфигурация): " + cardio.EstimateCalories(30));
 
             StrengthExerciseType strength = new StrengthExerciseType();
-            Console.WriteLine("Калории для силового: " + strength.EstimateCalories(30)); 
+            strength.BaseCaloriesPerMin = 5; 
+            strength.reps = 10;
+            Console.WriteLine("Калории для силового (статическая конфигурация): " + strength.EstimateCalories(30));
 
 
-            userDemo.SendNotification("Тест уведомления");
-            userDemo.Log("Тест лога");
+            strength.SetCalorieEstimator(new CardioCalorieEstimator());
+            Console.WriteLine("Калории для силового после динамической смены на кардио: " + strength.EstimateCalories(30));
 
-            ReminderSystem reminder = new ReminderSystem();
-            reminder.SendNotification("Тест напоминания");
+            strength.SetCalorieEstimator(new StrengthCalorieEstimator());
+            Console.WriteLine("Калории для силового после возврата: " + strength.EstimateCalories(30));
 
-            ProgressLog progress = new ProgressLog();
-            progress.Log("Тест прогресса");
-
-            // Абстрактный класс: нельзя создать FitnessEntity напрямую
-            // FitnessEntity absEntity = new FitnessEntity("id"); // Ошибка компиляции
         }
     }
 }
