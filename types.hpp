@@ -36,13 +36,6 @@ enum class Difficulty {
     Advanced 
 };
 
-enum class Category {
-    Cardio, 
-    Strength,
-    Yoga 
-};
-
-
 enum class Muscle {
     Chest, 
     Back, 

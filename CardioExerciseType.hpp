@@ -1,13 +1,18 @@
-#ifndef CARDIOEXERCISETYPE_HPP
-#define CARDIOEXERCISETYPE_HPP
+#pragma once
 #include "ExerciseType.hpp"
+
+class CardioCalorieEstimator : public ICalorieEstimator {
+public:
+    int estimate(int baseCaloriesPerMin, int duration) override {
+        return (baseCaloriesPerMin + 3) * duration;
+    }
+};
+
 class CardioExerciseType : public ExerciseType {
 public:
-	CardioExerciseType(double d) : distance(d) {}
-	int estimateCalories(int duration) override { 
-		return static_cast<int>(duration * 10 + baseCaloriesPerMin); 
-	}
-private:
-	double distance;
+    CardioExerciseType(double intensity)
+    {
+        baseCaloriesPerMin = intensity;
+        estimator = new CardioCalorieEstimator();
+    }
 };
-#endif

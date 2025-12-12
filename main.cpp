@@ -1,9 +1,8 @@
 #include <iostream>
 #include <memory>
-#include <iostream>
-#include <memory>
 #include <stdexcept>
 #include <windows.h>
+
 #include "FitnessUser.hpp"
 #include "GoalSetting.hpp"
 #include "DerivedUser.hpp"
@@ -11,41 +10,56 @@
 #include "CardioExerciseType.hpp"
 #include "StrengthExerciseType.hpp"
 #include "FitnessEntity.hpp"
+
 int main() {
-	SetConsoleOutputCP(1251);
+    SetConsoleOutputCP(1251);
 
-	// Демонстрация для лабораторной
-	// Производные классы
+    DerivedUser du("4", "du", "email", "date", Gender::Male, 1.8, 80.0, ActivityLevel::Medium, "info");
+    std::cout << "Инфо derived: " << du.getInfo() << std::endl;
 
-	DerivedUser du("4", "du", "email", "date", Gender::Male, 1.8, 80.0, ActivityLevel::Medium, "info");
-	std::cout << "Инфо derived: " << du.getInfo() << std::endl;
+    CardioExerciseType cardio(5.0);
+    std::cout << "Калории кардио: " << cardio.estimateCalories(10) << std::endl;
 
-	CardioExerciseType cardio(5.0);
-	std::cout << "Калории кардио (protected): " << cardio.estimateCalories(10) << std::endl;
+    StrengthExerciseType strength(10);
+    std::cout << "Калории силовых: " << strength.estimateCalories(10) << std::endl;
 
-	StrengthExerciseType strength(10);
-	std::cout << "Калории strength (с base): " << strength.estimateCalories(10) << std::endl;
-	std::cout << "Калории cardio (без base): " << cardio.estimateCalories(10) << std::endl;
+    FitnessEntity* ent = new DerivedUser("5", "du2", "email", "date", Gender::Male, 1.8, 90.0, ActivityLevel::Medium, "info2");
+    ent->callVirtual();
+    std::cout << "Полиморфизм: " << ent->calculateSomething() << std::endl;
+    delete ent;
 
-	// Виртуальные функции
+    ExerciseType et;
+    ExerciseType shallow = et;
+    ExerciseType deep = et.deepClone();
+    std::cout << "Клоны созданы" << std::endl;
 
-	FitnessEntity* ent = new DerivedUser("5", "du2", "email", "date", Gender::Male, 1.8, 90.0, ActivityLevel::Medium, "info2");
-	ent->callVirtual(); 
-	std::cout << "Полиморфизм: " << ent->calculateSomething() << std::endl;
-	// Без virtual calculateSomething: вызовет base версию (0.0)
-	delete ent; // Вызовет derived и base деструкторы благодаря virtual ~
+    FitnessUser baseUser("6", "base", "email", "date", Gender::Male, 1.8, 80.0, ActivityLevel::Medium);
+    du = baseUser;
+    std::cout << "Присваивание от base: " << du.getInfo() << std::endl;
 
-	// Клонирование
+    std::cout << "\n=== Демонстрация делегирования ===\n";
 
-	ExerciseType et;
-	ExerciseType shallow = et; 
-	ExerciseType deep = et.deepClone();
-	std::cout << "Клоны созданы" << std::endl;
-	// Абстрактный класс
-	// FitnessEntity* absEnt = new FitnessEntity(); // Ошибка, abstract
+    CardioExerciseType cardio2(5.0);
+    cardio2.setBaseCaloriesPerMin(5);
+    std::cout << "Статическое кардио (30 мин): " << cardio2.estimateCalories(30) << std::endl;
 
-	FitnessUser baseUser("6", "base", "email", "date", Gender::Male, 1.8, 80.0, ActivityLevel::Medium);
-	du = baseUser;
-	std::cout << "Присваивание от base: " << du.getInfo() << std::endl;
-	return 0;
+    StrengthExerciseType strength2(12);
+    strength2.setBaseCaloriesPerMin(4);
+    std::cout << "Статическое силовое (30 мин): " << strength2.estimateCalories(30) << std::endl;
+
+    ExerciseType baseExercise;
+    baseExercise.setBaseCaloriesPerMin(3);
+
+    std::cout << "Базовое без делегата (30 мин): "
+        << baseExercise.estimateCalories(30) << std::endl;
+
+    baseExercise.setCalorieEstimator(new CardioCalorieEstimator());
+    std::cout << "Динамическое кардио (30 мин): "
+        << baseExercise.estimateCalories(30) << std::endl;
+
+    baseExercise.setCalorieEstimator(new StrengthCalorieEstimator());
+    std::cout << "Динамическое силовое (30 мин): "
+        << baseExercise.estimateCalories(30) << std::endl;
+
+    return 0;
 }

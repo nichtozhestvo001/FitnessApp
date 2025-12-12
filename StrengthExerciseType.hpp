@@ -1,15 +1,18 @@
-#ifndef STRENGTHEXERCISETYPE_HPP
-#define STRENGTHEXERCISETYPE_HPP
+#pragma once
 #include "ExerciseType.hpp"
 
-class StrengthExerciseType : 
-	public ExerciseType {
-		public:
-			StrengthExerciseType(int r) : reps(r) {}
-			int estimateCalories(int duration) override { 
-			return ExerciseType::estimateCalories(duration) + reps * 5;
-	}
-	private:
-		int reps;
+class StrengthCalorieEstimator : public ICalorieEstimator {
+public:
+    int estimate(int baseCaloriesPerMin, int duration) override {
+        return (baseCaloriesPerMin * 2) * duration;
+    }
 };
-#endif
+
+class StrengthExerciseType : public ExerciseType {
+public:
+    StrengthExerciseType(int intensity)
+    {
+        baseCaloriesPerMin = intensity;
+        estimator = new StrengthCalorieEstimator();
+    }
+};
